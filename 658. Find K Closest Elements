@@ -1,0 +1,18 @@
+class Solution {
+        public static List<Integer> findClosestElements(int[] arr, int k, int x) {
+            int left = 0, right= arr.length-1;
+            while (left < right) {
+                int mid = (left + right) / 2;
+                if (mid + k < arr.length && x - arr[mid] > arr[mid+k] - x) {
+                    left = mid + 1;
+                } else {
+                    right = mid;
+                }
+            }
+            ArrayList<Integer> res = new ArrayList<>();
+            for (int i = left; i < left + k; i++) {
+                res.add(arr[i]);
+            }
+            return res;
+        }
+}
