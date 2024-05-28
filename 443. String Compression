@@ -1,0 +1,22 @@
+class Solution {
+    public static int compress(char[] chars) {
+        if (chars.length <= 1)
+            return chars.length;
+        int counter = 1;
+        int k = 0;
+        for(int i = 0; i < chars.length; i++){
+            if (i != chars.length - 1 && chars[i + 1] == chars[i]){
+                counter++;
+            }
+                        else {
+                chars[k++] = chars[i];
+                String s = Integer.toString(counter);
+                if (counter > 1)
+                    for (int j = 0; j < s.length(); j++)
+                        chars[k++] = s.charAt(j);
+                counter = 1;
+            }
+        }
+        return k;
+    }
+}
