@@ -1,0 +1,42 @@
+import java.util.*;
+
+class RandomizedSet {
+
+    ArrayList<Integer> list;
+    int size;
+    HashMap<Integer, Integer> map;
+
+
+    public RandomizedSet() {
+        list = new ArrayList<>();
+        map = new HashMap<>();
+        size = 0;
+    }
+
+    public boolean insert(int val) {
+        if (!map.containsKey(val)){
+            size++;
+            list.add(val);
+            map.put(val, size - 1);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean remove(int val) {
+        if (map.containsKey(val)){
+            map.put(list.get(size - 1), map.get(val));
+            list.set(map.get(val), list.get(size - 1));
+            map.remove(val);
+            list.removeLast();
+            size--;
+            return true;
+        }
+        return false;
+    }
+
+    public int getRandom() {
+        Random random = new Random();
+        return list.get(random.nextInt(size));
+    }
+}
