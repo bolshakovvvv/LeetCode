@@ -1,0 +1,32 @@
+class Solution {
+    public static void rotate(int[][] matrix) {
+        int n = matrix.length;
+        boolean[][] boolMatrix = new boolean[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (!boolMatrix[i][j] && (i == j || j == (n - i - 1))) {
+                    boolMatrix[i][j] = true;
+                    boolMatrix[i][n - j - 1] = true;
+                    boolMatrix[n - i - 1][j] = true;
+                    boolMatrix[n - i - 1][n - j - 1] = true;
+                    int temp = matrix[i][j];
+                    matrix[i][j] = matrix[n - i - 1][j];
+                    matrix[n - i - 1][j] = matrix[n - i - 1][n - j - 1];
+                    matrix[n - i - 1][n - j - 1] =  matrix[i][n - j - 1];
+                    matrix[i][n - j - 1] = temp;
+                }
+                else if (!boolMatrix[i][j]) {
+                    boolMatrix[i][j] = true;
+                    boolMatrix[j][n - i - 1] = true;
+                    boolMatrix[n - i - 1][n - j - 1] = true;
+                    boolMatrix[n - j - 1][i] = true;
+                    int temp = matrix[i][j];
+                    matrix[i][j] = matrix[n - j - 1][i];
+                    matrix[n - j - 1][i] = matrix[n - i - 1][n - j - 1];
+                    matrix[n - i - 1][n - j - 1] = matrix[j][n - i - 1];
+                    matrix[j][n - i - 1] = temp;
+                }
+            }
+        }
+    }
+}
