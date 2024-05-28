@@ -1,0 +1,55 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public static boolean isPalindrome(ListNode head) {
+        int size = 0;
+        ListNode headHelper = head;
+        while (headHelper != null){
+            headHelper = headHelper.next;
+            size++;
+        }
+        headHelper = head;
+        if (size < 2) 
+            return true;
+        if (size == 2 && head.val == head.next.val) {
+            return true;
+        }
+        else if (size == 2 && head.val != head.next.val){
+            return false;
+        }
+        int i = 0;
+        while (i < size / 2) {
+            headHelper = headHelper.next;
+            i++;
+        }
+        ListNode prev = headHelper;
+        ListNode curr = headHelper.next;
+        headHelper = headHelper.next;
+        while (headHelper.next != null) {
+            headHelper = headHelper.next;
+            curr.next = prev;
+            prev = curr;
+            curr = headHelper;
+            i++;
+        }
+        headHelper.next = prev;
+        for(int j = 0; j < size / 2; j++) {
+            if (head.val == headHelper.val){
+                headHelper = headHelper.next;
+                head = head.next;
+            }
+            else {
+                return false;
+            }
+        }
+        return true;
+    }
+}
