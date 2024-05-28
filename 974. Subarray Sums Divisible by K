@@ -1,0 +1,17 @@
+class Solution {
+    public int subarraysDivByK(int[] nums, int k) {
+        int result = 0, rem, sum = 0;
+        int [] reminders = new int[k];
+        reminders[0] = 1;
+        for (int x : nums) {
+            sum += x;
+            rem = sum % k;
+            if (rem < 0) {
+                rem += k;
+            }
+            result += reminders[rem];
+            reminders[rem]++;
+        }
+        return result;
+    }
+}
