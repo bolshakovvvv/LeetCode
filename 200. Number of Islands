@@ -1,0 +1,31 @@
+import java.util.*;
+
+class Solution {
+    public static int numIslands(char[][] grid) {
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        int counter = 0;
+        int[] deltaX = new int[]{1, -1, 0, 0};
+        int[] deltaY = new int[]{0, 0, -1, 1};
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (grid[i][j] == '1' && !visited[i][j]){
+                    counter++;
+                    dfs(grid, i, j, visited, deltaX, deltaY);
+                }
+            }
+        }
+        return counter;
+    }
+
+    public static void dfs(char[][] grid, int i, int j,boolean[][] visited, int[] deltaX, int[] deltaY){
+        visited[i][j] = true;
+        if (grid[i][j] == '1'){
+            for (int k = 0; k < 4; k++) {
+                if (i + deltaX[k] >= 0 && i + deltaX[k] < grid.length && j + deltaY[k] >= 0 && j + deltaY[k] < grid[i].length
+                        && grid[i + deltaX[k]][j + deltaY[k]] == '1' && !visited[i + deltaX[k]][j + deltaY[k]]) {
+                    dfs(grid, i + deltaX[k], j + deltaY[k], visited, deltaX, deltaY);
+                }
+            }
+        }
+    }
+}
