@@ -1,0 +1,26 @@
+class Solution {
+    public static int longestSubarray(int[] nums) {
+        int l = 0;
+        int r = 0;
+        int max = 0;
+        int nextIndex = 0;
+        while (r < nums.length){
+            boolean flag = false;
+            while (r < nums.length && (!flag || nums[r] == 1)){
+                if (nums[r] == 0) {
+                    flag = true;
+                    nextIndex = r + 1;
+                }
+                r++;
+            }
+            if (r - l - 1 > max)
+                max = r - l - 1;
+            if (nextIndex < nums.length){
+                l = nextIndex;
+            }
+            else
+                l++;
+        }
+        return max;
+    }
+}
