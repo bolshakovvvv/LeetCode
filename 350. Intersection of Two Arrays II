@@ -1,0 +1,53 @@
+class Solution {
+    public static int[] intersect(int[] nums1, int[] nums2) {
+        short minSize = 0;
+        byte smallerSize = 1;
+        if (nums1.length > nums2.length) {
+            minSize = (short) nums2.length;
+            smallerSize = 2;
+        }
+        else {
+            minSize = (short) nums1.length;
+        }
+        int[] result = new int[minSize];
+        int k = 0;
+        HashMap<Short, Short> map = new HashMap<>();
+        if (smallerSize == 1) {
+            for (int i = 0; i < nums1.length; i++) {
+                if (!map.containsKey((short)nums1[i])) {
+                    map.put( (short) nums1[i],(short) 1);
+                }
+                else {
+                    map.put((short) nums1[i], (short) (map.get((short)nums1[i]) + 1));
+                }
+            }
+            for (int i = 0; i < nums2.length; i++) {
+                if (map.containsKey((short)nums2[i]) && (map.get((short)nums2[i]) > (short) 0)) {
+                    result[k++] = (short)nums2[i];
+                    map.put((short)nums2[i], (short)(map.get((short)nums2[i]) - 1));
+                }
+            }
+        }
+        else{
+            for (int i = 0; i < nums2.length; i++) {
+                if (!map.containsKey((short)nums2[i])) {
+                    map.put( (short) nums2[i],(short) 1);
+                }
+                else {
+                    map.put((short) nums2[i], (short) (map.get((short)nums2[i]) + 1));
+                }
+            }
+            for (int i = 0; i < nums1.length; i++) {
+                if (map.containsKey((short)nums1[i]) && map.get((short)nums1[i]) > 0) {
+                    result[k++] = (short)nums1[i];
+                    map.put((short)nums1[i], (short)(map.get((short)nums1[i]) - 1));
+                }
+            }
+        }
+        int[] newResult = new int[k];
+        for (int i = 0; i < k; i++){
+            newResult[i] = result[i];
+        }
+        return newResult;
+    }
+}
