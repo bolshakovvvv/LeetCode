@@ -1,0 +1,41 @@
+class Solution {
+    public static int[][] generateMatrix(int n) {
+        int[][] result = new int[n][n];
+        int count = 1;
+        int i = 0;
+        int j = 0;
+        int max = n;
+        while (count <= max * max) {
+            while (j < n){
+                result[i][j] = count;
+                j++;
+                count++;
+            }
+            j--;
+            i++;
+            while (i < n){
+                result[i][j] = count;
+                i++;
+                count++;
+            }
+            i--;
+            j--;
+            while (j >= max - n){
+                result[i][j] = count;
+                j--;
+                count++;
+            }
+            j++;
+            i--;
+            n--;
+            while (i >= max - n){
+                result[i][j] = count;
+                i--;
+                count++;
+            }
+            i++;
+            j++;
+        }
+        return result;
+    }
+}
